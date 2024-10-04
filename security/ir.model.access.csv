@@ -1,0 +1,4 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_dtm_requisicion,access.dtm.requisicion,model_dtm_requisicion,base.group_user,1,1,1,1
+access_dtm_requisicion_material,access.dtm.requisicion.material,model_dtm_requisicion_material,base.group_user,1,1,1,1
+

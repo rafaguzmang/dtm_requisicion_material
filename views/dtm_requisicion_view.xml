@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="dtm_requisicion_action" model="ir.actions.act_window">
+            <field name="name">Requisición de Material</field>
+            <field name="res_model">dtm.requisicion</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="dtm_requisicion_tree" model="ir.ui.view">
+            <field name="name">dtm_requisicion_tree</field>
+            <field name="model">dtm.requisicion</field>
+            <field name="arch" type="xml">
+                <tree delete="false" >
+                    <field name="folio"/>
+                    <field name="servicio"/>
+                    <field name="departamento"/>
+                    <field name="solicitante" />
+                    <field name="date_in" widget="date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="dtm_requisicion_form" model="ir.ui.view">
+            <field name="name">dtm_requisicion_form</field>
+            <field name="model">dtm.requisicion</field>
+            <field name="arch" type="xml">
+                <form delete="false">
+                    <header>
+                        <button type="object" name="action_comprar" string="Solicitar"  icon="fa-shopping-cart" class="btn btn-primary" />
+                    </header>
+                    <sheet>
+                        <h1> Requisición de Material </h1>
+
+                        <group class="col-12">
+                                <group class="col-6">
+                                    <field name="servicio" />
+                                    <field name="departamento"/>
+                                    <field name="solicitante"/>
+                                    <field name="date_in"/>
+                                </group>
+                                <group class="col-6">
+                                     <group style="color:#f00">
+                                        <field name="folio" />
+                                     </group>
+                                    <field name="tipo"/>
+
+                                </group>
+                        </group>
+                         <group class="col-12" style="border-top: 1px solid rgba(0, 0, 0, .2); padding-top: 6px;">
+                            <field name="extraordinarias"/>
+                            <field name="facturas"/>
+                         </group>
+                        <field name="material_ids">
+                            <tree editable="bottom" >
+                                <field name="nombre"/>
+                                <field name="unidad" />
+                                <field name="cantidad" options='{"type": "number"}'/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <menuitem id="dtm_requisicion_menu" action="dtm_requisicion_action" />
+    </data>
+</odoo>
