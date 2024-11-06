@@ -5,7 +5,10 @@ from datetime import datetime
 class Requisicion(models.Model):
     _name = "dtm.requisicion"
     _description = "Modulo para la solicitud de materiales"
+    _rec_name = "folio"
     #------------------------------Funciones Default ----------------------------
+    def action_pasive(self):
+        pass
     def action_autoNum(self):  # Genera número consecutivo de NPI y OT
 
         get_odt = self.env['dtm.requisicion'].search([], order='folio desc', limit=1)
@@ -41,6 +44,7 @@ class Requisicion(models.Model):
         for material in self.material_ids:
             vals = {
                 'orden_trabajo':str(self.folio),
+                'tipo_orden':'Requi',
                 'codigo':material.codigo,
                 'nombre':f"{material.nombre.nombre} {material.nombre.medida if material.nombre.medida else ''}",
                 'cantidad':material.cantidad,

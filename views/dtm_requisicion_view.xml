@@ -30,6 +30,15 @@
                         <button type="object" name="action_comprar" string="Solicitar"  icon="fa-shopping-cart" class="btn btn-primary" />
                     </header>
                     <sheet>
+                         <div class="oe_button_box" name="button_box">
+                            <button name="action_pasive" type="object" string="Cliente" class="oe_stat_button" icon="fa-calendar">
+                                <field name="date_in"  string="" widget="statinfo"/>
+                            </button>
+                            <button name="action_pasive" type="object" string="tipo" class="oe_stat_button" icon="fa-user">
+                                <field name="solicitante"  string="" widget="statinfo"/>
+                            </button>
+
+                        </div>
                         <h1> Requisición de Material </h1>
 
                         <group class="col-12">
