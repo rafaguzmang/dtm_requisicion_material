@@ -6,6 +6,7 @@ class Requisicion(models.Model):
     _name = "dtm.requisicion"
     _description = "Modulo para la solicitud de materiales"
     _rec_name = "folio"
+    _order = "id desc"
     #------------------------------Funciones Default ----------------------------
     def action_pasive(self):
         pass
