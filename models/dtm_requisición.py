@@ -50,7 +50,8 @@ class Requisicion(models.Model):
                 'nombre':f"{material.nombre.nombre} {material.nombre.medida if material.nombre.medida else ''}",
                 'cantidad':material.cantidad,
                 'disenador':self.env.user.partner_id.name,
-                'servicio':False
+                'servicio':False,
+                'nesteo':True
             }
             get_compras = self.env['dtm.compras.requerido'].search([("orden_trabajo","=",str(self.folio)),("codigo","=",material.nombre.id)])
             get_compras.write(vals) if get_compras else get_compras.create(vals)
