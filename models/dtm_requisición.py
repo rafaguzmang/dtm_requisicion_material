@@ -32,7 +32,7 @@ class Requisicion(models.Model):
     departamento = fields.Selection(string="Departamento",selection=[("diseno","Diseño"),("almacen","Almacén"),("ventas","Ventas"),
                                                                      ("produccion","Producción"),("direccion","Dirección"),("mantenimiento","Mantenimiento"),
                                                                      ("calidad","Calidad")],default= direccion_default)
-    solicitante = fields.Char(string="Solicitó",default= firma_usuario, readonly=True)
+    solicitante_id = fields.Many2one('dtm.hr.empleados',string="Solicitó")
     date_in = fields.Date(string="Fecha de Solicitud", default=datetime.today(), readonly=True)
 
     tipo = fields.Selection(string="Tipo de Servicio", selection=[("proyecto", "Proyecto"), ("servicio", "Servicio"),
@@ -49,7 +49,7 @@ class Requisicion(models.Model):
                 'codigo':material.codigo,
                 'nombre':f"{material.nombre.nombre} {material.nombre.medida if material.nombre.medida else ''}",
                 'cantidad':material.cantidad,
-                'disenador':self.env.user.partner_id.name,
+                'disenador':f"{self.solicitante_id.nombre} ({self.departamento})",
                 'servicio':False,
                 'nesteo':True
             }

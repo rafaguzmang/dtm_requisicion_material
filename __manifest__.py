@@ -4,7 +4,7 @@
     'version': '1.0',
     'author': "Rafael Guzmán",
     "description": "Modulo para solicitar material",
-    "depends":["dtm_diseno"],
+    "depends":["dtm_diseno","dtm_hr"],
     "data":[
         'security/ir.model.access.csv',
         #Views

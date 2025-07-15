@@ -15,7 +15,7 @@
                     <field name="folio"/>
                     <field name="servicio"/>
                     <field name="departamento"/>
-                    <field name="solicitante" />
+                    <field name="solicitante_id" />
                     <field name="date_in" widget="date"/>
                 </tree>
             </field>
@@ -35,7 +35,7 @@
                                 <field name="date_in"  string="" widget="statinfo"/>
                             </button>
                             <button name="action_pasive" type="object" string="tipo" class="oe_stat_button" icon="fa-user">
-                                <field name="solicitante"  string="" widget="statinfo"/>
+                                <field name="solicitante_id"  string="" widget="statinfo"/>
                             </button>
 
                         </div>
@@ -45,7 +45,7 @@
                                 <group class="col-6">
                                     <field name="servicio" />
                                     <field name="departamento"/>
-                                    <field name="solicitante"/>
+                                    <field name="solicitante_id"/>
                                     <field name="date_in"/>
                                 </group>
                                 <group class="col-6">
