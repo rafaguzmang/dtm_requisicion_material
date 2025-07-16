@@ -1,6 +1,8 @@
 from odoo import fields, api, models
 from datetime import datetime
 
+from pkg_resources import require
+
 
 class Requisicion(models.Model):
     _name = "dtm.requisicion"
@@ -23,7 +25,7 @@ class Requisicion(models.Model):
         usuario = self.env.user.partner_id.email
         departamento = "diseno" if usuario in ["ingenieria@dtmindustry.com","ingenieria2@dtmindustry.com"] else "almacen" if usuario in ["almacen@dtmindustry.com"] else\
             "ventas" if usuario in ["ventas1@dtmindustry.com"] else "produccion" if usuario in ["manufactura@dtmindustry.com"] else "direccion" if usuario in ["hugo_chacon@dtmindustry.com","manufactura2@dtmindustry.com"] else\
-            "mantenimiento" if usuario in ["rafaguzmang@hotmail.com"] else "calidad" if usuario in ["calidad2@dtmindustry.com"] else ""
+            "Sistemas" if usuario in ["rafaguzmang@hotmail.com"] else "calidad" if usuario in ["calidad2@dtmindustry.com"] else ""
 
         return departamento
     #-------------------------------- Datos -------------------------------------
@@ -31,8 +33,8 @@ class Requisicion(models.Model):
     servicio = fields.Char(string="OT/OT Servicio")
     departamento = fields.Selection(string="Departamento",selection=[("diseno","Diseño"),("almacen","Almacén"),("ventas","Ventas"),
                                                                      ("produccion","Producción"),("direccion","Dirección"),("mantenimiento","Mantenimiento"),
-                                                                     ("calidad","Calidad")],default= direccion_default)
-    solicitante_id = fields.Many2one('dtm.hr.empleados',string="Solicitó")
+                                                                     ("calidad","Calidad"),("sistemas","Sistemas")],default= direccion_default)
+    solicitante_id = fields.Many2one('dtm.hr.empleados',string="Solicitó", require=True)
     date_in = fields.Date(string="Fecha de Solicitud", default=datetime.today(), readonly=True)
 
     tipo = fields.Selection(string="Tipo de Servicio", selection=[("proyecto", "Proyecto"), ("servicio", "Servicio"),
@@ -53,8 +55,9 @@ class Requisicion(models.Model):
                 'servicio':False,
                 'nesteo':True
             }
-            get_compras = self.env['dtm.compras.requerido'].search([("orden_trabajo","=",str(self.folio)),("codigo","=",material.nombre.id)])
-            get_compras.write(vals) if get_compras else get_compras.create(vals)
+            if not material.comprado:
+                get_compras = self.env['dtm.compras.requerido'].search([("orden_trabajo","=",str(self.folio)),("codigo","=",material.nombre.id)])
+                get_compras.write(vals) if get_compras else get_compras.create(vals)
 
 
 class Materiales(models.Model):
@@ -67,3 +70,4 @@ class Materiales(models.Model):
     codigo = fields.Integer(related='nombre.id')
     unidad = fields.Char(string="Unidad")
     cantidad = fields.Integer(string="Cantidad")
+    comprado = fields.Boolean(string="Comprado",readonly = True)
